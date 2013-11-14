@@ -1,1 +1,3 @@
 bitvote
+*.swp
+*.pyc
