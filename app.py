@@ -1,13 +1,13 @@
 import StringIO
 
-from flask import Flask, make_response
+from flask import Flask, make_response, render_template
 import qrcode
 
 app = Flask(__name__)
 
 @app.route('/')
 def hi():
-    return 'hi'
+    return render_template('base.html')
 
 @app.route('/testqr')
 def testqr():
