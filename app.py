@@ -22,5 +22,10 @@ def testqr():
         return '%r' % e
     return resp
 
+@app.route('/testvidya')
+def testvidya():
+	return render_template('testvidya.html')
+
+
 if __name__ == "__main__":
     app.run()
