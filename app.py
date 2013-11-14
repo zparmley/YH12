@@ -34,7 +34,7 @@ def vote_yea():
 
 @app.route('/testvidya')
 def testvidya():
-	return render_template('testvidya.html')
+    return render_template('testvidya.html')
 
 
 if __name__ == "__main__":
