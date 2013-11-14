@@ -5,7 +5,7 @@ import qrcode
 
 app = Flask(__name__)
 
-app.config['SERVER_NAME'] = 'dev2-devc.dev.yelpcorp.com:35535'
+# app.config['SERVER_NAME'] = 'dev2-devc.dev.yelpcorp.com:35535'
 
 @app.route('/')
 def hi():
@@ -34,6 +34,15 @@ def vote_yea():
     return resp
 
 
+@app.route('/qr/vote_nay')
+def vote_nay():
+    out = StringIO.StringIO()
+    qrcode.make('bitcoin:n2ZtCWod8yYSD7fZzs9NyqyiehQZU62kbg?amount=.001&label=nono%20you%20loose').save(out)
+    resp = make_response(out.getvalue())
+    resp.content_type = 'image/png'
+    return resp
+
+
 @app.route('/testvidya')
 def testvidya():
     return render_template('testvidya.html')
@@ -45,6 +54,10 @@ def grab():
 		return render_template('testvidya.html')
 	except Exception as e:
 		return '%r' % e
+
+@app.route('/vote_to_choose')
+def vote():
+    return render_template('vote_to_choose.html')
 
 
 if __name__ == "__main__":
