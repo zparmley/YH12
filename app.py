@@ -12,7 +12,7 @@ def hi():
 @app.route('/testqr')
 def testqr():
     try:
-        img = qrcode.make('blah blah blah')
+        img = qrcode.make('http://www.yelp.com')
         out = StringIO.StringIO()
         img.save(out)
 
@@ -20,6 +20,14 @@ def testqr():
         resp.content_type = 'image/png'
     except Exception as e:
         return '%r' % e
+    return resp
+
+@app.route('/qr/vote_yea')
+def vote_yea():
+    out = StringIO.StringIO()
+    qrcode.make('bitcoin:msheGGqfR2wYCTUxCbi2zc5jMAeyFySYfz?amount=.001').save(out)
+    resp = make_response(out.getvalue())
+    resp.content_type = 'image/png'
     return resp
 
 if __name__ == "__main__":
