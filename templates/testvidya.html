@@ -1,20 +1,23 @@
+<!doctype html>
 <html>
 	<head>
 		<script src="static/jquery-2.0.3.min.js"></script>
 		<script src="static/html5-qrcode.min.js"></script>
 		<script>
-		$('#reader').html5_qrcode(function(data){
-				 console.log(data);
-			},
-			function(error){
-				 console.log(error);
-			}, function(videoError){
-				 console.log(videoError);
-			}
-		);
+			$(document).ready(function(){
+				$('#reader').html5_qrcode(function(data) {
+						 console.log(data);
+					}, function(error) {
+						 console.log(error);
+					}, function(videoError) {
+						 console.log(videoError);
+					}
+				);
+			});
 		</script>
 	</head>
 	<body>
+		hello
 		<div id="reader" style="width:300px;height:250px"></div>
 	</body>
 </html>

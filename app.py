@@ -5,9 +5,11 @@ import qrcode
 
 app = Flask(__name__)
 
+app.config['SERVER_NAME'] = 'dev2-devc.dev.yelpcorp.com:35535'
+
 @app.route('/')
 def hi():
-    return render_template('base.html')
+	return render_template('base.html')
 
 @app.route('/testqr')
 def testqr():
@@ -37,5 +39,13 @@ def testvidya():
     return render_template('testvidya.html')
 
 
+@app.route('/grab')
+def grab():
+	try:
+		return render_template('testvidya.html')
+	except Exception as e:
+		return '%r' % e
+
+
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0')
