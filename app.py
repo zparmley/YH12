@@ -22,6 +22,7 @@ def testqr():
         return '%r' % e
     return resp
 
+
 @app.route('/qr/vote_yea')
 def vote_yea():
     out = StringIO.StringIO()
@@ -29,6 +30,12 @@ def vote_yea():
     resp = make_response(out.getvalue())
     resp.content_type = 'image/png'
     return resp
+
+
+@app.route('/testvidya')
+def testvidya():
+	return render_template('testvidya.html')
+
 
 if __name__ == "__main__":
     app.run()
