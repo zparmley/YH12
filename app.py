@@ -75,6 +75,19 @@ def grab():
 def vote():
     return render_template('vote_to_choose.html')
 
+@app.route('/give_away_money/<address>')
+def give_away_money(address):
+    try:
+        import re
+        to = re.match('bitcoin:(.*)\?.*', address).group(1)
+        from wallet.connection import get_bitcoin_connection
+        connection = get_bitcoin_connection()
+        connection.sendtoaddress(to, .002, comment="Vote with your dollars!")
+    except Exception as e:
+        return '%r' % e
+    return 'yaay'
+
+
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run()
