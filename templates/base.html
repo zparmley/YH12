@@ -7,7 +7,6 @@
 	<script src="static/jquery-2.0.3.min.js"></script>
     <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="static/html5-qrcode.min.js"></script>
-	<script src="static/vendor/html5-qrcode-master/src/html5-qrcode.js"></script>
 	<style type="text/css">
 		#reader {
 			margin: 20px auto;
@@ -49,23 +48,21 @@
                 $('html, body').animate({
                     scrollTop: $(anchor).offset().top
                     }, 1000);
-            }); 
+            });
         });
     </script>
 </head>
 <body>
     <div class="container">
-        <section id="start-container">
-            {% include 'start.html' %}
-        </section>
+		{% block meat %}
+			<section id="start-container">
+				{% include 'start.html' %}
+			</section>
 
-        <section id="grab-container">
-            {% include 'grab.html' %}
-        </section>
-
-        <section id="vote-container">
-            {% include 'vote_to_choose.html' %}
-        </section>
+			<section id="grab-container">
+				{% include 'grab.html' %}
+			</section>
+		{% endblock %}
     <div>
 </body>
 </html>

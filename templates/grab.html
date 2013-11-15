@@ -17,19 +17,17 @@
             });
         }
     }
-    var noop = function noop(){}
-    $(document).ready(function(){
-        $('#reader').html5_qrcode(qr_data_handler, noop, noop);
-    });
+    var noop = function(){}
+    $(document).ready(function(){$('#reader').html5_qrcode(qr_data_handler, noop, noop);});
 </script>
 
-<h2 id="directions">2) HOLD UP YOUR WALLET QR CODE HERE AND GET SOME BITCOIN!</h2>
+<h2 id="directions">HOLD UP YOUR WALLET QR CODE HERE AND GET SOME BITCOIN!</h2>
 <div id="reader"></div>
 <div class="reader-status">
     <span id="status"></span>
 </div>
 
 <div class="next-action">
-    <button type="button" class="btn btn-primary btn-large after-qr-button" data-next-anchor="#vote-container">Woo, I got Bitcoins! Now what?</button>
+    <button type="button" class="btn btn-primary btn-large after-qr-button" data-next-anchor="#vote-container">Woo, I got Bitcoins!</button>
 </div>
 

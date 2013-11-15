@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block meat %}
+  <section id="vote-container">
+    {% include 'vote_to_choose.html' %}
+  </section>
+
+  <section id="result-container">
+    {% include 'result.html' %}
+  </section>
+{% endblock %}
