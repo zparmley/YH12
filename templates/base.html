@@ -9,11 +9,6 @@
 	<script src="static/html5-qrcode.min.js"></script>
 	<script src="static/vendor/html5-qrcode-master/src/html5-qrcode.js"></script>
 	<style type="text/css">
-		.content {
-			width: 900px;
-			margin: 0 auto;
-		}
-
 		#reader {
 			margin: 20px auto;
 			width: 600px;
@@ -26,13 +21,51 @@
             margin-top: 100px;
             margin-bottom: 100px;
         }
+
+        .next-action {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .company-logo {
+            margin-left: 100px;
+        }
+
+        .reader-status {
+            text-align: center;
+        }
+
+        section {
+            padding-top: 100px;
+            min-height: 1500px;
+        }
 	</style>
+
+    <script>
+        // Small script to move the page along when clicking buttons
+        $(document).ready(function () {
+            $(".next-action button").click(function() {
+                var anchor = $(this).data('next-anchor');
+                $('html, body').animate({
+                    scrollTop: $(anchor).offset().top
+                    }, 1000);
+            }); 
+        });
+    </script>
 </head>
 <body>
-    <div class="content">
-        {% include 'start.html' %}
-        {% include 'grab.html' %}
-        {% include 'vote_to_choose.html' %}
+    <div class="container">
+        <section id="start-container">
+            {% include 'start.html' %}
+        </section>
+
+        <section id="grab-container">
+            {% include 'grab.html' %}
+        </section>
+
+        <section id="vote-container">
+            {% include 'vote_to_choose.html' %}
+        </section>
     <div>
 </body>
 </html>
