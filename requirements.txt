@@ -2,3 +2,4 @@ flask
 pil
 qrcode
 bitcoin-python
+pyquery
