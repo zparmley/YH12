@@ -1,3 +1,7 @@
+<style scoped>
+	h1 { text-align: center; }
+	h2 { text-align: center; }
+</style>
 <h1>SCAN QR CODE TO VOTE BY PLACING A BITCOIN BET!</h1>
 <div class="row-fluid">
   <div class="span6">
@@ -37,10 +41,14 @@
     }
     $(document).ready(function(){
         setInterval(votePoller, 2000);
+		$('#vote-container button').click(function(){
+			window.setTimeout(function(){$('#result-container button').click();}, 2000);
+		});
     });
+
 </script>
 
 <div class="next-action">
-    <button type="button" class="btn btn-primary btn-large last-button" data-next-anchor="#start-container">Woo, I voted! Thanks for playing!</button>
+    <button type="button" class="btn btn-primary btn-large last-button" data-next-anchor="#result-container">Woo, I voted!</button>
 </div>
 
