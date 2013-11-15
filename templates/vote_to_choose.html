@@ -10,3 +10,16 @@
   </div>
 </div>
 
+<script>
+    var vote_indicate = function vote_indicate(vote) {
+        console.log(vote)
+    }
+    var votePoller = function votePoller() {
+        $.get('/poll_boats', function(data) {
+            console.log(data);
+        });
+    }
+    $(document).ready(function(){
+        setInterval(votePoller, 2000);
+    });
+</script>
