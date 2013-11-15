@@ -6,11 +6,9 @@ from flask import Flask, make_response, render_template
 import qrcode
 
 from config.votes import votes as votes_config
-from wallet.connection import get_bitcoin_connection
+from wallet.connection import get_bitcoin_connection, get_source_connection
 
 app = Flask(__name__)
-
-#app.config['SERVER_NAME'] = 'dev2-devc.dev.yelpcorp.com:35535'
 
 
 @app.route('/')
@@ -72,7 +70,7 @@ def vote():
 def give_away_money(address):
     try:
         to = re.match('bitcoin:([a-zA-Z0-9]{34}).*', address).group(1)
-        connection = get_bitcoin_connection()
+        connection = get_source_connection()
         connection.sendtoaddress(to, .002, comment="Vote with your dollars!")
     except Exception as e:
         return '%r' % e
