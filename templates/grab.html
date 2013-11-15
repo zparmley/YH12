@@ -1,37 +1,20 @@
-<!doctype html>
-<html>
-	<head>
-		<script src="static/jquery-2.0.3.min.js"></script>
-		<script src="static/html5-qrcode.min.js"></script>
-		<script>
-			$(document).ready(function(){
-				$('#reader').html5_qrcode(function(data) {
-						 console.log(data);
-					}, function(error) {
-						 console.log(error);
-					}, function(videoError) {
-						 console.log(videoError);
-					}
-				);
-			});
-		</script>
-		<style type="text/css">
-			div#directions {
-				margin: 40px auto;
-				width: 600px;
-				font-weight: bold;
-				font-size: 30pt;
+<script>
+	$(document).ready(function(){
+		$('#reader').html5_qrcode(function(data) {
+				 $('#status').text(data);
+			}, function(error) {
+				 $('#status').text(error);
+			}, function(videoError) {
+				 $('#status').text(videoError);
 			}
-			div#reader {
-				margin: 20px auto;
-				width: 600px;
-				height: 500px;
-			}
-		</style>
-	</head>
-	<body>
-		<div id="directions">HOLD UP YOUR WALLET QR CODE HERE SO WE CAN PUT MONEY IN IT YO</div>
-		<div id="reader"></div>
-	</body>
-</html>
+		);
+	});
+</script>
+
+<h2 id="directions">HOLD UP YOUR WALLET QR CODE HERE SO WE CAN PUT MONEY IN IT YO</h2>
+<div id="reader"></div>
+<span id="status"></span>
+
+
+<a href="/vote_to_choose">and then</a>
 
