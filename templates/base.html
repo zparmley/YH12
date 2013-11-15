@@ -9,43 +9,30 @@
 	<script src="static/html5-qrcode.min.js"></script>
 	<script src="static/vendor/html5-qrcode-master/src/html5-qrcode.js"></script>
 	<style type="text/css">
-		div#apphole {
+		.content {
 			width: 900px;
 			margin: 0 auto;
 		}
-		div#reader {
+
+		#reader {
 			margin: 20px auto;
 			width: 600px;
 			height: 500px;
 		}
-		div#hideyhole {
-			position: absolute;
-			left: -10000;
-		}
-	</style>
-	<script>
-		$(document).ready(function(){
-			var $apphole = $('#apphole');
-			$apphole.on('click', 'a', function(evt) {
-				evt.preventDefault();
 
-				$.ajax($(this).attr('href'))
-					.success(function(data) {
-						$('#apphole').html(data)
-					});
-			});
-		});
-	</script>
+        .spacer {
+            height: 20px;
+            background-color: gray;
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+	</style>
 </head>
 <body>
-	<div id="apphole">
-        <h1>Get a wallet!</h1>
-        <h2>Download an iPhone wallet</h2>
-        <p><img src="qr/download_ios" /></p>
-        <h2>Download an Android wallet</h2>
-        <p><img src="qr/download_android" /></p>
-
-		<a href="/grab">next</a>
-	</div>
+    <div class="content">
+        {% include 'start.html' %}
+        {% include 'grab.html' %}
+        {% include 'vote_to_choose.html' %}
+    <div>
 </body>
 </html>
