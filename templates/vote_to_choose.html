@@ -1,25 +1,46 @@
 <h1>3) VOTE BY PLACING A BITCOIN BET!</h1>
-<div class="row">
-  <div class="span5">
+<div class="row-fluid">
+  <div class="span6">
 	<h2>Vote No, we suck!</h2>
-	<img src="/qr/vote/nay" />
+        <img class='vote_nay' src="/qr/vote/nay" />
+        <div class="vote_nay_indicate" style="background: url('/static/check-mark.png'); position: relative; top: -400px; height: 281px; width: 314px; display: none;">&nbsp;</div>
   </div>
-  <div class="span5">
+  <div class="span6">
 	<h2>Vote Yes, we win!</h2>
-	<img src="/qr/vote/yea" />
+	<img class='vote_yes' src="/qr/vote/yea" />
+        <div class="vote_yes_indicate" style="background: url('/static/check-mark.png'); position: relative; top: -400px; height: 281px; width: 314px; display: none;">&nbsp;</div>
   </div>
 </div>
 
 <script>
     var vote_indicate = function vote_indicate(vote) {
-        console.log(vote)
+        if (vote == '"vote_nea"') {
+            $('.vote_nay_indicate').show();
+        } else if (vote == '"vote_yea"') {
+            $('.vote_yes_indicate').show();
+        } else {
+            console.log(vote);
+        }
+        setTimeout(function() {
+            $('.last-button').click();
+            $('.vote_yes_indicate').hide();
+            $('.vote_nay_indicate').hide();
+        }, 2000);
+
     }
     var votePoller = function votePoller() {
         $.get('/poll_boats', function(data) {
-            console.log(data);
+            if (data.found) {
+                vote_indicate(data.account)
+            }
         });
     }
     $(document).ready(function(){
         setInterval(votePoller, 2000);
     });
 </script>
+
+<div class="next-action">
+    <button type="button" class="btn btn-primary btn-large last-button" data-next-anchor="#start-container">Woo, I voted! Thanks for playing!</button>
+</div>
+
