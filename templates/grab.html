@@ -5,12 +5,16 @@
     }
     var qr_data_handler = function qr_data_handler(data) {
         if (qr_enabled) {
-            qr_enabled = 0;
             console.log(data);
-            $.get('/give_away_money/' + encodeURI(data), function(data){ console.log(data); });
-            console.log('/give_away_money/' + encodeURI(data));
-            transition_reader();
-            setTimeout(function() {qr_enabled=1;}, 2000);
+            $.get('/give_away_money/' + encodeURI(data), function(data){
+                if (data == 'yaay') {
+                    qr_enabled = 0;
+                    console.log('/give_away_money/' + encodeURI(data));
+                    transition_reader();
+                    setTimeout(function() {qr_enabled=1;}, 2000);
+                    console.log(data);
+                }
+            });
         }
     }
     var noop = function noop(){}
