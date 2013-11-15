@@ -41,6 +41,24 @@ def vote_qr_code(vote):
     return resp
 
 
+@app.route('/qr/download_ios')
+def qr_download_ios():
+    out = StringIO.StringIO()
+    qrcode.make('itms-apps://itunes.com/apps/blockchain').save(out)
+    resp = make_response(out.getvalue())
+    resp.content_type = 'image/png'
+    return resp
+
+
+@app.route('/qr/download_android')
+def qr_download_android():
+    out = StringIO.StringIO()
+    qrcode.make('market://details?id=de.schildbach.wallet').save(out)
+    resp = make_response(out.getvalue())
+    resp.content_type = 'image/png'
+    return resp
+
+
 @app.route('/testvidya')
 def testvidya():
     return render_template('testvidya.html')
@@ -49,7 +67,7 @@ def testvidya():
 @app.route('/grab')
 def grab():
 	try:
-		return render_template('testvidya.html')
+		return render_template('grab.html')
 	except Exception as e:
 		return '%r' % e
 
