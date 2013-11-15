@@ -66,10 +66,10 @@ def grab():
 def vote():
     return render_template('vote_to_choose.html')
 
-@app.route('/give_away_money/<address>')
+@app.route('/give_away_money/<path:address>')
 def give_away_money(address):
     try:
-        to = re.match('bitcoin:([a-zA-Z0-9]{34}).*', address).group(1)
+        to = re.match('bitcoin:/{0,2}([a-zA-Z0-9]{34}).*', address).group(1)
         connection = get_source_connection()
         connection.sendtoaddress(to, .002, comment="Vote with your dollars!")
     except Exception as e:
