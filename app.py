@@ -69,7 +69,7 @@ def testvidya():
 @app.route('/grab')
 def grab():
 	try:
-		return render_template('testvidya.html')
+		return render_template('grab.html')
 	except Exception as e:
 		return '%r' % e
 
