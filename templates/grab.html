@@ -1,14 +1,20 @@
 <script>
-	$(document).ready(function(){
-		$('#reader').html5_qrcode(function(data) {
-				 $('#status').text(data);
-			}, function(error) {
-				 $('#status').text(error);
-			}, function(videoError) {
-				 $('#status').text(videoError);
-			}
-		);
-	});
+    var qr_enabled = 1;
+    var hide_reader = function hide_reader() {
+        $('video').animate({height:1});
+    }
+    var qr_data_handler = function qr_data_handler(data) {
+        if (qr_enabled) {
+            qr_enabled = 0;
+            $.get('/give_away_money/' + encodeURI(data));
+            console.log('/give_away_money/' + encodeURI(data));
+            hide_reader();
+        }
+    }
+    var noop = function noop(){}
+    $(document).ready(function(){
+        $('#reader').html5_qrcode(qr_data_handler, noop, noop);
+    });
 </script>
 
 <h2 id="directions">HOLD UP YOUR WALLET QR CODE HERE SO WE CAN PUT MONEY IN IT YO</h2>
