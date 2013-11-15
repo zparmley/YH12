@@ -1,9 +1,12 @@
+import json
+import re
 import StringIO
 
 from flask import Flask, make_response, render_template
 import qrcode
 
 from config.votes import votes as votes_config
+from wallet.connection import get_bitcoin_connection
 
 app = Flask(__name__)
 
@@ -68,15 +71,38 @@ def vote():
 @app.route('/give_away_money/<address>')
 def give_away_money(address):
     try:
-        import re
         to = re.match('bitcoin:([a-zA-Z0-9]{34}).*', address).group(1)
-        from wallet.connection import get_bitcoin_connection
         connection = get_bitcoin_connection()
         connection.sendtoaddress(to, .002, comment="Vote with your dollars!")
     except Exception as e:
         return '%r' % e
     return 'yaay'
 
+
+# meh
+global seen
+seen = []
+
+@app.route('/poll_boats')
+def poll_boats():
+    try:
+        global seen
+        con = get_bitcoin_connection()
+        transactions = con.listtransactions()
+        relevant = [t for t in transactions if not t.txid in seen]
+        for r in relevant:
+            seen.append(r.txid)
+
+        if relevant:
+            resp = {'found': True, 'account': json.dumps(relevant[0].account), 'seen': seen}
+        else:
+            resp = {'found': False}
+
+        resp = make_response(json.dumps(resp))
+        resp.content_type = 'application/json'
+        return resp
+    except Exception as e:
+        return '%r' % e
 
 
 if __name__ == "__main__":
