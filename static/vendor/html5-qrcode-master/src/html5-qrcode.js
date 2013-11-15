@@ -6,11 +6,14 @@
     var height = this.height() || 250;
     var width = this.width() || 300;
 
-    var vidTag = '<video id="html5_qrcode_video" width="' + width + 'px" height="' + height + 'px"></video>' 
-    var canvasTag = '<canvas id="qr-canvas" width="' + (width - 2) + 'px" height="' + (height - 2) + 'px" style="display:none;"></canvas>' 
+	// only add the vid in if it's not there already
+	if ($(this).children().length == 0) {
+		var vidTag = '<video id="html5_qrcode_video" width="' + width + 'px" height="' + height + 'px"></video>' 
+		var canvasTag = '<canvas id="qr-canvas" width="' + (width - 2) + 'px" height="' + (height - 2) + 'px" style="display:none;"></canvas>' 
 
-    this.append(vidTag);
-    this.append(canvasTag);
+		this.append(vidTag);
+		this.append(canvasTag);
+	}
 
 
     var video = $('#html5_qrcode_video').get(0);
@@ -24,7 +27,7 @@
 
 
     var scan = function() {
-      if (localMediaStream) {
+      if (window.localMediaStream) {
         context.drawImage(video, 0, 0, 307,250);
 
         try {
@@ -46,7 +49,7 @@
 
     var successCallback = function(stream) {
         video.src = (window.URL && window.URL.createObjectURL(stream)) || stream;
-        localMediaStream = stream;
+        window.localMediaStream = stream;
 
         video.play();
         setTimeout(scan,1000);

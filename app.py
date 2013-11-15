@@ -7,13 +7,23 @@ from config.votes import votes as votes_config
 
 app = Flask(__name__)
 
-# app.config['SERVER_NAME'] = 'dev2-devc.dev.yelpcorp.com:35535'
+app.config['SERVER_NAME'] = 'dev2-devc.dev.yelpcorp.com:35535'
+
 
 @app.route('/')
 def hi():
 	return render_template('base.html')
 
 #In [27]: [(x.account, x.txid, get_transaction_from(x.txid)) for x in mek.listtransactions(count=100000000000)]
+
+@app.route('/start')
+def start():
+	return render_template('start.html')
+
+
+@app.route('/result')
+def result():
+	return render_template('result.html')
 
 
 @app.route('/testqr')
@@ -57,12 +67,6 @@ def qr_download_android():
     resp = make_response(out.getvalue())
     resp.content_type = 'image/png'
     return resp
-
-
-@app.route('/testvidya')
-def testvidya():
-    return render_template('testvidya.html')
-
 
 @app.route('/grab')
 def grab():
