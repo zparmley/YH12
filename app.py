@@ -7,7 +7,7 @@ from config.votes import votes as votes_config
 
 app = Flask(__name__)
 
-app.config['SERVER_NAME'] = 'dev2-devc.dev.yelpcorp.com:35535'
+#app.config['SERVER_NAME'] = 'dev2-devc.dev.yelpcorp.com:35535'
 
 
 @app.route('/')
@@ -24,20 +24,6 @@ def start():
 @app.route('/result')
 def result():
 	return render_template('result.html')
-
-
-@app.route('/testqr')
-def testqr():
-    try:
-        img = qrcode.make('market://details?id=com.google.android.apps.maps')
-        out = StringIO.StringIO()
-        img.save(out)
-
-        resp = make_response(out.getvalue())
-        resp.content_type = 'image/png'
-    except Exception as e:
-        return '%r' % e
-    return resp
 
 
 @app.route('/qr/vote/<vote>')
