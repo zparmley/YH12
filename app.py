@@ -69,7 +69,7 @@ def vote():
 def give_away_money(address):
     try:
         import re
-        to = re.match('bitcoin:(.*)\?.*', address).group(1)
+        to = re.match('bitcoin:([a-zA-Z0-9]{34}).*', address).group(1)
         from wallet.connection import get_bitcoin_connection
         connection = get_bitcoin_connection()
         connection.sendtoaddress(to, .002, comment="Vote with your dollars!")
