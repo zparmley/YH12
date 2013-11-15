@@ -1,14 +1,16 @@
 <script>
     var qr_enabled = 1;
-    var hide_reader = function hide_reader() {
-        $('video').animate({height:1});
+    var transition_reader = function transition_reader() {
+        $('.after-qr-button').click();
     }
     var qr_data_handler = function qr_data_handler(data) {
         if (qr_enabled) {
             qr_enabled = 0;
-            $.get('/give_away_money/' + encodeURI(data));
+            console.log(data);
+            $.get('/give_away_money/' + encodeURI(data), function(data){ console.log(data); });
             console.log('/give_away_money/' + encodeURI(data));
-            hide_reader();
+            transition_reader();
+            setTimeout(function() {qr_enabled=1;}, 2000);
         }
     }
     var noop = function noop(){}
@@ -24,6 +26,6 @@
 </div>
 
 <div class="next-action">
-    <button type="button" class="btn btn-primary btn-large" data-next-anchor="#vote-container">Woo, I got Bitcoins! Now what?</button>
+    <button type="button" class="btn btn-primary btn-large after-qr-button" data-next-anchor="#vote-container">Woo, I got Bitcoins! Now what?</button>
 </div>
 
