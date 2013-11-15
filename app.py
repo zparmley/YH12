@@ -3,6 +3,8 @@ import StringIO
 from flask import Flask, make_response, render_template
 import qrcode
 
+from config.votes import votes as votes_config
+
 app = Flask(__name__)
 
 # app.config['SERVER_NAME'] = 'dev2-devc.dev.yelpcorp.com:35535'
@@ -11,10 +13,13 @@ app = Flask(__name__)
 def hi():
 	return render_template('base.html')
 
+#In [27]: [(x.account, x.txid, get_transaction_from(x.txid)) for x in mek.listtransactions(count=100000000000)]
+
+
 @app.route('/testqr')
 def testqr():
     try:
-        img = qrcode.make('http://www.yelp.com')
+        img = qrcode.make('market://details?id=com.google.android.apps.maps')
         out = StringIO.StringIO()
         img.save(out)
 
@@ -25,19 +30,12 @@ def testqr():
     return resp
 
 
-@app.route('/qr/vote_yea')
-def vote_yea():
+@app.route('/qr/vote/<vote>')
+def vote_qr_code(vote):
+    if vote not in votes_config:
+        return None
     out = StringIO.StringIO()
-    qrcode.make('bitcoin:msheGGqfR2wYCTUxCbi2zc5jMAeyFySYfz?amount=.001').save(out)
-    resp = make_response(out.getvalue())
-    resp.content_type = 'image/png'
-    return resp
-
-
-@app.route('/qr/vote_nay')
-def vote_nay():
-    out = StringIO.StringIO()
-    qrcode.make('bitcoin:n2ZtCWod8yYSD7fZzs9NyqyiehQZU62kbg?amount=.001&label=nono%20you%20loose').save(out)
+    qrcode.make('bitcoin:%s?amount=%s&label=%s' % (votes_config[vote]['address'], votes_config[vote]['ammount'], votes_config[vote]['label'])).save(out)
     resp = make_response(out.getvalue())
     resp.content_type = 'image/png'
     return resp
